@@ -48,7 +48,7 @@
         "value": "Particle Movement"
     },
     "movementSpeed": {
-        "max": 200,
+        "max": 300,
         "min": 0,
         "text": "Speed",
         "type": "slider",
@@ -61,7 +61,7 @@
         "type": "slider",
         "value": 200
     },
-    "randomness": {
+    "movementRandomness": {
         "max": 100,
         "min": 0,
         "text": "Randomness",

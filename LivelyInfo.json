@@ -1,14 +1,13 @@
 {
-    "AppVersion": "0.9.5.5",
-    "Title": "Triangles & Light",
-    "Thumbnail": "lively_t.jpg",
-    "Preview": "lively_p.gif",
-    "Desc": "Triangle pattern generator with light that follow cursor.",
-    "Author": "Maksim Surguy",
-    "License": null,
-    "Contact": "https://codepen.io/msurguy/pen/sbIio",
+    "AppVersion": "1.0.0.0",
+    "Title": "Dynamic Triangles",
+    "Thumbnail": "dynamicTriangles.png",
+    "Preview": "dynamicTriangles_preview.gif",
+    "Desc": "Dynamic triangles generator with light gradient from the bottom.",
+    "Author": "Francesco Marras",
+    "License": "MIT",
+    "Contact": "https://github.com/Achille004/dynamicTriangles_wallpaper",
     "Type": 1,
-    "FileName": "triangle.html",
-    "Arguments": null,
-    "IsAbsolutePath": false
+    "FileName": "src/dynamicTriangles.html",
+    "Arguments": null
 }
