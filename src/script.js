@@ -282,7 +282,6 @@ Math.clamp = function (value, min, max) {
  * @see https://gist.github.com/paulirish/1579671
  */
 (function () {
-
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
 
@@ -308,7 +307,6 @@ Math.clamp = function (value, min, max) {
             clearTimeout(id);
         };
     }
-
 }());
 
 // #region FSS
@@ -321,797 +319,857 @@ FSS = {
     BACK: 1,
     DOUBLE: 2,
     SVGNS: 'http://www.w3.org/2000/svg'
-};
+}
 
 /**
  * @class Array
  * @author Matthew Wagerfield
  */
-FSS.Array = typeof Float32Array === 'function' ? Float32Array : Array;
+class FSSArray extends(typeof Float32Array === 'function' ? Float32Array : Array) {
+    constructor() {}
+}
 
 /**
  * @class Utils
  * @author Matthew Wagerfield
  */
-FSS.Utils = {
-    isNumber: function (value) {
-        return !isNaN(parseFloat(value)) && isFinite(value);
+class Utils {
+    static isNumber(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value)
     }
-};
+}
 
 /**
  * @object Vector3
  * @author Matthew Wagerfield
  */
-FSS.Vector3 = {
-    create: function (x, y, z) {
-        var vector = new FSS.Array(3);
-        this.set(vector, x, y, z);
-        return vector;
-    },
-    clone: function (a) {
-        var vector = this.create();
-        this.copy(vector, a);
-        return vector;
-    },
-    set: function (target, x, y, z) {
-        target[0] = x || 0;
-        target[1] = y || 0;
-        target[2] = z || 0;
-        return this;
-    },
-    setX: function (target, x) {
-        target[0] = x || 0;
-        return this;
-    },
-    setY: function (target, y) {
-        target[1] = y || 0;
-        return this;
-    },
-    setZ: function (target, z) {
-        target[2] = z || 0;
-        return this;
-    },
-    copy: function (target, a) {
-        target[0] = a[0];
-        target[1] = a[1];
-        target[2] = a[2];
-        return this;
-    },
-    add: function (target, a) {
-        target[0] += a[0];
-        target[1] += a[1];
-        target[2] += a[2];
-        return this;
-    },
-    addVectors: function (target, a, b) {
-        target[0] = a[0] + b[0];
-        target[1] = a[1] + b[1];
-        target[2] = a[2] + b[2];
-        return this;
-    },
-    addScalar: function (target, s) {
-        target[0] += s;
-        target[1] += s;
-        target[2] += s;
-        return this;
-    },
-    subtract: function (target, a) {
-        target[0] -= a[0];
-        target[1] -= a[1];
-        target[2] -= a[2];
-        return this;
-    },
-    subtractVectors: function (target, a, b) {
-        target[0] = a[0] - b[0];
-        target[1] = a[1] - b[1];
-        target[2] = a[2] - b[2];
-        return this;
-    },
-    subtractScalar: function (target, s) {
-        target[0] -= s;
-        target[1] -= s;
-        target[2] -= s;
-        return this;
-    },
-    multiply: function (target, a) {
-        target[0] *= a[0];
-        target[1] *= a[1];
-        target[2] *= a[2];
-        return this;
-    },
-    multiplyVectors: function (target, a, b) {
-        target[0] = a[0] * b[0];
-        target[1] = a[1] * b[1];
-        target[2] = a[2] * b[2];
-        return this;
-    },
-    multiplyScalar: function (target, s) {
-        target[0] *= s;
-        target[1] *= s;
-        target[2] *= s;
-        return this;
-    },
-    divide: function (target, a) {
-        target[0] /= a[0];
-        target[1] /= a[1];
-        target[2] /= a[2];
-        return this;
-    },
-    divideVectors: function (target, a, b) {
-        target[0] = a[0] / b[0];
-        target[1] = a[1] / b[1];
-        target[2] = a[2] / b[2];
-        return this;
-    },
-    divideScalar: function (target, s) {
+class Vector3 {
+    static create(x, y, z) {
+        var vector = new Array(3)
+        this.set(vector, x, y, z)
+        return vector
+    }
+
+    static clone(a) {
+        var vector = this.create()
+        this.copy(vector, a)
+        return vector
+    }
+
+    static set(target, x, y, z) {
+        target[0] = x || 0
+        target[1] = y || 0
+        target[2] = z || 0
+        return this
+    }
+
+    static setX(target, x) {
+        target[0] = x || 0
+        return this
+    }
+
+    static setY(target, y) {
+        target[1] = y || 0
+        return this
+    }
+
+    static setZ(target, z) {
+        target[2] = z || 0
+        return this
+    }
+
+    static copy(target, a) {
+        target[0] = a[0]
+        target[1] = a[1]
+        target[2] = a[2]
+        return this
+    }
+
+    static add(target, a) {
+        target[0] += a[0]
+        target[1] += a[1]
+        target[2] += a[2]
+        return this
+    }
+
+    static addVectors(target, a, b) {
+        target[0] = a[0] + b[0]
+        target[1] = a[1] + b[1]
+        target[2] = a[2] + b[2]
+        return this
+    }
+
+    static addScalar(target, s) {
+        target[0] += s
+        target[1] += s
+        target[2] += s
+        return this
+    }
+
+    static subtract(target, a) {
+        target[0] -= a[0]
+        target[1] -= a[1]
+        target[2] -= a[2]
+        return this
+    }
+
+    static subtractVectors(target, a, b) {
+        target[0] = a[0] - b[0]
+        target[1] = a[1] - b[1]
+        target[2] = a[2] - b[2]
+        return this
+    }
+
+    static subtractScalar(target, s) {
+        target[0] -= s
+        target[1] -= s
+        target[2] -= s
+        return this
+    }
+
+    static multiply(target, a) {
+        target[0] *= a[0]
+        target[1] *= a[1]
+        target[2] *= a[2]
+        return this
+    }
+
+    static multiplyVectors(target, a, b) {
+        target[0] = a[0] * b[0]
+        target[1] = a[1] * b[1]
+        target[2] = a[2] * b[2]
+        return this
+    }
+
+    static multiplyScalar(target, s) {
+        target[0] *= s
+        target[1] *= s
+        target[2] *= s
+        return this
+    }
+
+    static divide(target, a) {
+        target[0] /= a[0]
+        target[1] /= a[1]
+        target[2] /= a[2]
+        return this
+    }
+
+    static divideVectors(target, a, b) {
+        target[0] = a[0] / b[0]
+        target[1] = a[1] / b[1]
+        target[2] = a[2] / b[2]
+        return this
+    }
+
+    static divideScalar(target, s) {
         if (s !== 0) {
-            target[0] /= s;
-            target[1] /= s;
-            target[2] /= s;
+            target[0] /= s
+            target[1] /= s
+            target[2] /= s
         } else {
-            target[0] = 0;
-            target[1] = 0;
-            target[2] = 0;
+            target[0] = 0
+            target[1] = 0
+            target[2] = 0
         }
-        return this;
-    },
-    cross: function (target, a) {
-        var x = target[0];
-        var y = target[1];
-        var z = target[2];
-        target[0] = y * a[2] - z * a[1];
-        target[1] = z * a[0] - x * a[2];
-        target[2] = x * a[1] - y * a[0];
-        return this;
-    },
-    crossVectors: function (target, a, b) {
-        target[0] = a[1] * b[2] - a[2] * b[1];
-        target[1] = a[2] * b[0] - a[0] * b[2];
-        target[2] = a[0] * b[1] - a[1] * b[0];
-        return this;
-    },
-    min: function (target, value) {
+        return this
+    }
+
+    static cross(target, a) {
+        var x = target[0]
+        var y = target[1]
+        var z = target[2]
+        target[0] = y * a[2] - z * a[1]
+        target[1] = z * a[0] - x * a[2]
+        target[2] = x * a[1] - y * a[0]
+        return this
+    }
+
+    static crossVectors(target, a, b) {
+        target[0] = a[1] * b[2] - a[2] * b[1]
+        target[1] = a[2] * b[0] - a[0] * b[2]
+        target[2] = a[0] * b[1] - a[1] * b[0]
+        return this
+    }
+
+    static min(target, value) {
         if (target[0] < value) {
-            target[0] = value;
+            target[0] = value
         }
         if (target[1] < value) {
-            target[1] = value;
+            target[1] = value
         }
         if (target[2] < value) {
-            target[2] = value;
+            target[2] = value
         }
-        return this;
-    },
-    max: function (target, value) {
+        return this
+    }
+
+    static max(target, value) {
         if (target[0] > value) {
-            target[0] = value;
+            target[0] = value
         }
         if (target[1] > value) {
-            target[1] = value;
+            target[1] = value
         }
         if (target[2] > value) {
-            target[2] = value;
+            target[2] = value
         }
-        return this;
-    },
-    clamp: function (target, min, max) {
-        this.min(target, min);
-        this.max(target, max);
-        return this;
-    },
-    limit: function (target, min, max) {
-        var length = this.length(target);
-        if (min !== null && length < min) {
-            this.setLength(target, min);
-        } else if (max !== null && length > max) {
-            this.setLength(target, max);
-        }
-        return this;
-    },
-    dot: function (a, b) {
-        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-    },
-    normalise: function (target) {
-        return this.divideScalar(target, this.length(target));
-    },
-    negate: function (target) {
-        return this.multiplyScalar(target, -1);
-    },
-    distanceSquared: function (a, b) {
-        var dx = a[0] - b[0];
-        var dy = a[1] - b[1];
-        var dz = a[2] - b[2];
-        return dx * dx + dy * dy + dz * dz;
-    },
-    distance: function (a, b) {
-        return Math.sqrt(this.distanceSquared(a, b));
-    },
-    lengthSquared: function (a) {
-        return a[0] * a[0] + a[1] * a[1] + a[2] * a[2];
-    },
-    length: function (a) {
-        return Math.sqrt(this.lengthSquared(a));
-    },
-    setLength: function (target, l) {
-        var length = this.length(target);
-        if (length !== 0 && l !== length) {
-            this.multiplyScalar(target, l / length);
-        }
-        return this;
+        return this
     }
-};
+
+    static clamp(target, min, max) {
+        this.min(target, min)
+        this.max(target, max)
+        return this
+    }
+
+    static limit(target, min, max) {
+        var length = this.length(target)
+        if (min !== null && length < min) {
+            this.setLength(target, min)
+        } else if (max !== null && length > max) {
+            this.setLength(target, max)
+        }
+        return this
+    }
+
+    static dot(a, b) {
+        return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+    }
+
+    static normalise(target) {
+        return this.divideScalar(target, this.length(target))
+    }
+
+    static negate(target) {
+        return this.multiplyScalar(target, -1)
+    }
+
+    static distanceSquared(a, b) {
+        var dx = a[0] - b[0]
+        var dy = a[1] - b[1]
+        var dz = a[2] - b[2]
+        return dx * dx + dy * dy + dz * dz
+    }
+
+    static distance(a, b) {
+        return Math.sqrt(this.distanceSquared(a, b))
+    }
+
+    static lengthSquared(a) {
+        return a[0] * a[0] + a[1] * a[1] + a[2] * a[2]
+    }
+
+    static length(a) {
+        return Math.sqrt(this.lengthSquared(a))
+    }
+
+    static setLength(target, l) {
+        var length = this.length(target)
+        if (length !== 0 && l !== length) {
+            this.multiplyScalar(target, l / length)
+        }
+        return this
+    }
+}
 
 /**
  * @object Vector4
  * @author Matthew Wagerfield
  */
-FSS.Vector4 = {
-    create: function (x, y, z, w) {
-        var vector = new FSS.Array(4);
-        this.set(vector, x, y, z);
-        return vector;
-    },
-    set: function (target, x, y, z, w) {
-        target[0] = x || 0;
-        target[1] = y || 0;
-        target[2] = z || 0;
-        target[3] = w || 0;
-        return this;
-    },
-    setX: function (target, x) {
-        target[0] = x || 0;
-        return this;
-    },
-    setY: function (target, y) {
-        target[1] = y || 0;
-        return this;
-    },
-    setZ: function (target, z) {
-        target[2] = z || 0;
-        return this;
-    },
-    setW: function (target, w) {
-        target[3] = w || 0;
-        return this;
-    },
-    add: function (target, a) {
-        target[0] += a[0];
-        target[1] += a[1];
-        target[2] += a[2];
-        target[3] += a[3];
-        return this;
-    },
-    multiplyVectors: function (target, a, b) {
-        target[0] = a[0] * b[0];
-        target[1] = a[1] * b[1];
-        target[2] = a[2] * b[2];
-        target[3] = a[3] * b[3];
-        return this;
-    },
-    multiplyScalar: function (target, s) {
-        target[0] *= s;
-        target[1] *= s;
-        target[2] *= s;
-        target[3] *= s;
-        return this;
-    },
-    min: function (target, value) {
+class Vector4 {
+    static create(x, y, z, w) {
+        var vector = new Array(4)
+        this.set(vector, x, y, z)
+        return vector
+    }
+
+    static set(target, x, y, z, w) {
+        target[0] = x || 0
+        target[1] = y || 0
+        target[2] = z || 0
+        target[3] = w || 0
+        return this
+    }
+
+    static setX(target, x) {
+        target[0] = x || 0
+        return this
+    }
+
+    static setY(target, y) {
+        target[1] = y || 0
+        return this
+    }
+
+    static setZ(target, z) {
+        target[2] = z || 0
+        return this
+    }
+
+    static setW(target, w) {
+        target[3] = w || 0
+        return this
+    }
+
+    static add(target, a) {
+        target[0] += a[0]
+        target[1] += a[1]
+        target[2] += a[2]
+        target[3] += a[3]
+        return this
+    }
+
+    static multiplyVectors(target, a, b) {
+        target[0] = a[0] * b[0]
+        target[1] = a[1] * b[1]
+        target[2] = a[2] * b[2]
+        target[3] = a[3] * b[3]
+        return this
+    }
+
+    static multiplyScalar(target, s) {
+        target[0] *= s
+        target[1] *= s
+        target[2] *= s
+        target[3] *= s
+        return this
+    }
+
+    static min(target, value) {
         if (target[0] < value) {
-            target[0] = value;
+            target[0] = value
         }
         if (target[1] < value) {
-            target[1] = value;
+            target[1] = value
         }
         if (target[2] < value) {
-            target[2] = value;
+            target[2] = value
         }
         if (target[3] < value) {
-            target[3] = value;
+            target[3] = value
         }
-        return this;
-    },
-    max: function (target, value) {
+        return this
+    }
+
+    static max(target, value) {
         if (target[0] > value) {
-            target[0] = value;
+            target[0] = value
         }
         if (target[1] > value) {
-            target[1] = value;
+            target[1] = value
         }
         if (target[2] > value) {
-            target[2] = value;
+            target[2] = value
         }
         if (target[3] > value) {
-            target[3] = value;
+            target[3] = value
         }
-        return this;
-    },
-    clamp: function (target, min, max) {
-        this.min(target, min);
-        this.max(target, max);
-        return this;
+        return this
     }
-};
+
+    static clamp(target, min, max) {
+        this.min(target, min)
+        this.max(target, max)
+        return this
+    }
+}
 
 /**
  * @class Color
  * @author Matthew Wagerfield
  */
-FSS.Color = class {
+class Color {
     constructor(hex, opacity) {
-        this.rgba = FSS.Vector4.create();
-        this.hex = hex || '#000000';
-        this.opacity = FSS.Utils.isNumber(opacity) ? opacity : 1;
-        this.set(this.hex, this.opacity);
+        this.rgba = Vector4.create()
+        this.hex = hex || '#000000'
+        this.opacity = Utils.isNumber(opacity) ? opacity : 1
+        this.set(this.hex, this.opacity)
     }
+
     set(hex, opacity) {
-        hex = hex.replace('#', '');
-        var size = hex.length / 3;
-        this.rgba[0] = parseInt(hex.substring(size * 0, size * 1), 16) / 255;
-        this.rgba[1] = parseInt(hex.substring(size * 1, size * 2), 16) / 255;
-        this.rgba[2] = parseInt(hex.substring(size * 2, size * 3), 16) / 255;
-        this.rgba[3] = FSS.Utils.isNumber(opacity) ? opacity : this.rgba[3];
-        return this;
+        hex = hex.replace('#', '')
+        var size = hex.length / 3
+        this.rgba[0] = parseInt(hex.substring(size * 0, size * 1), 16) / 255
+        this.rgba[1] = parseInt(hex.substring(size * 1, size * 2), 16) / 255
+        this.rgba[2] = parseInt(hex.substring(size * 2, size * 3), 16) / 255
+        this.rgba[3] = Utils.isNumber(opacity) ? opacity : this.rgba[3]
+        return this
     }
+
     hexify(channel) {
-        var hex = Math.ceil(channel * 255).toString(16);
+        var hex = Math.ceil(channel * 255).toString(16)
         if (hex.length === 1) {
-            hex = '0' + hex;
+            hex = '0' + hex
         }
-        return hex;
+        return hex
     }
+
     format() {
-        var r = this.hexify(this.rgba[0]);
-        var g = this.hexify(this.rgba[1]);
-        var b = this.hexify(this.rgba[2]);
-        this.hex = '#' + r + g + b;
-        return this.hex;
+        var r = this.hexify(this.rgba[0])
+        var g = this.hexify(this.rgba[1])
+        var b = this.hexify(this.rgba[2])
+        this.hex = '#' + r + g + b
+        return this.hex
     }
-};
+}
 
 /**
- * @class Object
+ * @class FSSObject
  * @author Matthew Wagerfield
  */
-FSS.Object = function () {
-    this.position = FSS.Vector3.create();
-};
-
-FSS.Object.prototype = {
-    setPosition: function (x, y, z) {
-        FSS.Vector3.set(this.position, x, y, z);
-        return this;
+class FSSObject {
+    constructor() {
+        this.position = Vector3.create()
     }
-};
+
+    setPosition(x, y, z) {
+        Vector3.set(this.position, x, y, z)
+        return this
+    }
+}
 
 /**
  * @class Light
  * @author Matthew Wagerfield
  */
-FSS.Light = class {
+class Light extends FSSObject {
     constructor(ambient, diffuse) {
-        FSS.Object.call(this);
-        this.ambient = new FSS.Color(ambient || '#FFFFFF');
-        this.diffuse = new FSS.Color(diffuse || '#FFFFFF');
-        this.ray = FSS.Vector3.create();
-    }
-};
+        super()
 
-FSS.Light.prototype = Object.create(FSS.Object.prototype);
+        this.ambient = new Color(ambient || '#FFFFFF')
+        this.diffuse = new Color(diffuse || '#FFFFFF')
+        this.ray = Vector3.create()
+    }
+}
 
 /**
  * @class Vertex
  * @author Matthew Wagerfield
  */
-FSS.Vertex = class {
+class Vertex {
     constructor(x, y, z) {
-        this.position = FSS.Vector3.create(x, y, z);
+        this.position = Vector3.create(x, y, z)
     }
+
     setPosition(x, y, z) {
-        FSS.Vector3.set(this.position, x, y, z);
-        return this;
+        Vector3.set(this.position, x, y, z)
+        return this
     }
-};
+}
 
 /**
  * @class Triangle
  * @author Matthew Wagerfield
  */
-FSS.Triangle = class {
+class Triangle {
     constructor(a, b, c) {
-        this.a = a || new FSS.Vertex();
-        this.b = b || new FSS.Vertex();
-        this.c = c || new FSS.Vertex();
-        this.vertices = [this.a, this.b, this.c];
-        this.u = FSS.Vector3.create();
-        this.v = FSS.Vector3.create();
-        this.centroid = FSS.Vector3.create();
-        this.normal = FSS.Vector3.create();
-        this.color = new FSS.Color();
-        this.lineColor = new FSS.Color(MESH.borderColor, MESH.borderOpacity);
-        this.polygon = document.createElementNS(FSS.SVGNS, 'polygon');
-        this.polygon.setAttributeNS(null, 'stroke-linejoin', 'round');
-        this.polygon.setAttributeNS(null, 'stroke-miterlimit', '1');
-        this.polygon.setAttributeNS(null, 'stroke-width', '1');
-        this.computeCentroid();
-        this.computeNormal();
+        this.a = a || new Vertex()
+        this.b = b || new Vertex()
+        this.c = c || new Vertex()
+        this.vertices = [this.a, this.b, this.c]
+        this.u = Vector3.create()
+        this.v = Vector3.create()
+        this.centroid = Vector3.create()
+        this.normal = Vector3.create()
+        this.color = new Color()
+        this.lineColor = new Color(MESH.borderColor, MESH.borderOpacity)
+        this.polygon = document.createElementNS(FSS.SVGNS, 'polygon')
+        this.polygon.setAttributeNS(null, 'stroke-linejoin', 'round')
+        this.polygon.setAttributeNS(null, 'stroke-miterlimit', '1')
+        this.polygon.setAttributeNS(null, 'stroke-width', '1')
+        this.computeCentroid()
+        this.computeNormal()
     }
+
     computeCentroid() {
-        this.centroid[0] = this.a.position[0] + this.b.position[0] + this.c.position[0];
-        this.centroid[1] = this.a.position[1] + this.b.position[1] + this.c.position[1];
-        this.centroid[2] = this.a.position[2] + this.b.position[2] + this.c.position[2];
-        FSS.Vector3.divideScalar(this.centroid, 3);
-        return this;
+        this.centroid[0] = this.a.position[0] + this.b.position[0] + this.c.position[0]
+        this.centroid[1] = this.a.position[1] + this.b.position[1] + this.c.position[1]
+        this.centroid[2] = this.a.position[2] + this.b.position[2] + this.c.position[2]
+        Vector3.divideScalar(this.centroid, 3)
+        return this
     }
+
     computeNormal() {
-        FSS.Vector3.subtractVectors(this.u, this.b.position, this.a.position);
-        FSS.Vector3.subtractVectors(this.v, this.c.position, this.a.position);
-        FSS.Vector3.crossVectors(this.normal, this.u, this.v);
-        FSS.Vector3.normalise(this.normal);
-        return this;
+        Vector3.subtractVectors(this.u, this.b.position, this.a.position)
+        Vector3.subtractVectors(this.v, this.c.position, this.a.position)
+        Vector3.crossVectors(this.normal, this.u, this.v)
+        Vector3.normalise(this.normal)
+        return this
     }
-};
+}
 
 /**
  * @class Geometry
  * @author Matthew Wagerfield
  */
-FSS.Geometry = class {
+class Geometry {
     constructor() {
-        this.vertices = [];
-        this.triangles = [];
-        this.dirty = false;
+        this.vertices = []
+        this.triangles = []
+        this.dirty = false
     }
+
     update() {
         if (this.dirty) {
-            var t, triangle;
+            var t, triangle
             for (t = this.triangles.length - 1; t >= 0; t--) {
-                triangle = this.triangles[t];
-                triangle.computeCentroid();
-                triangle.computeNormal();
+                triangle = this.triangles[t]
+                triangle.computeCentroid()
+                triangle.computeNormal()
             }
-            this.dirty = false;
+            this.dirty = false
         }
-        return this;
+        return this
     }
-};
+}
 
 /**
  * @class Plane
  * @author Matthew Wagerfield, modified by Maksim Surguy to implement Delaunay triangulation
  */
-FSS.Plane = class {
+class Plane extends Geometry {
     constructor(width, height, howmany) {
-        FSS.Geometry.call(this);
-        this.vertices = new Array(howmany);
+        super()
+
+        this.vertices = new Array(howmany)
 
         // Cache Variables
-        var x, y;
-        var offsetX = width * -0.5, offsetY = height * 0.5;
+        var x, y
+        var offsetX = width * -0.5,
+            offsetY = height * 0.5
 
         for (i = this.vertices.length; i--;) {
-            x = offsetX + Math.random() * width;
-            y = offsetY - Math.random() * height;
+            x = offsetX + Math.random() * width
+            y = offsetY - Math.random() * height
 
-            this.vertices[i] = [x, y];
+            this.vertices[i] = [x, y]
         }
 
         // Generate additional points on the perimeter so that there are no holes in the pattern
-        this.vertices.push([offsetX, offsetY]);
-        this.vertices.push([offsetX + width / 2, offsetY]);
-        this.vertices.push([offsetX + width, offsetY]);
-        this.vertices.push([offsetX + width, offsetY - height / 2]);
-        this.vertices.push([offsetX + width, offsetY - height]);
-        this.vertices.push([offsetX + width / 2, offsetY - height]);
-        this.vertices.push([offsetX, offsetY - height]);
-        this.vertices.push([offsetX, offsetY - height / 2]);
+        this.vertices.push([offsetX, offsetY])
+        this.vertices.push([offsetX + width / 2, offsetY])
+        this.vertices.push([offsetX + width, offsetY])
+        this.vertices.push([offsetX + width, offsetY - height / 2])
+        this.vertices.push([offsetX + width, offsetY - height])
+        this.vertices.push([offsetX + width / 2, offsetY - height])
+        this.vertices.push([offsetX, offsetY - height])
+        this.vertices.push([offsetX, offsetY - height / 2])
 
         // Generate additional randomly placed points on the perimeter
         for (var i = 6; i >= 0; i--) {
-            this.vertices.push([offsetX + Math.random() * width, offsetY]);
-            this.vertices.push([offsetX, offsetY - Math.random() * height]);
-            this.vertices.push([offsetX + width, offsetY - Math.random() * height]);
-            this.vertices.push([offsetX + Math.random() * width, offsetY - height]);
+            this.vertices.push([offsetX + Math.random() * width, offsetY])
+            this.vertices.push([offsetX, offsetY - Math.random() * height])
+            this.vertices.push([offsetX + width, offsetY - Math.random() * height])
+            this.vertices.push([offsetX + Math.random() * width, offsetY - height])
         }
 
         // Create an array of triangulated coordinates from our vertices
-        this.triangles = this.generateTriangles(this.vertices);
+        this.generateTriangles()
 
         for (var i = 0; i < this.vertices.length; i++) {
-            this.vertices[i][2] = -1;
+            this.vertices[i][2] = -1
         }
+    }
 
-        // Update function to move vertices
-        this.movementFrame = function (halfWidth, halfHeight, howmany) {
-            for (var i = 0; i < howmany; i++) {
-                var vertex = this.vertices[i];
+    // Update function to move vertices
+    movementFrame(halfWidth, halfHeight, howmany) {
+        for (var i = 0; i < howmany; i++) {
+            var vertex = this.vertices[i]
 
-                // If movement frame is -1 or over the RENDER.movementFrames
-                if (vertex[2] == -1 || vertex[2] > RENDER.movementFrames) {
-                    var f = RENDER.movementFrames - 1;
-                    var d = RENDER.movementDistance;
-                    var r = RENDER.movementRandomness;
-                    var dr = d * r, fr = f * r;
+            // If movement frame is -1 or over the RENDER.movementFrames
+            if (vertex[2] == -1 || vertex[2] > RENDER.movementFrames) {
+                var f = RENDER.movementFrames - 1
+                var d = RENDER.movementDistance
+                var r = RENDER.movementRandomness
+                var dr = d * r,
+                    fr = f * r
 
-                    // Modify x-coordinate variation randomly by +/- RENDER.movementDistance (with randomness)
-                    vertex[3] = Math.randomInRange(-Math.randomInRange(dr, d), Math.randomInRange(dr, d));
-                    if (Math.abs(vertex[0] + vertex[3]) > halfWidth) {
-                        if (vertex[0] > 0) {
-                            vertex[3] = halfWidth - vertex[0];
-                        } else {
-                            vertex[3] = -halfWidth - vertex[0];
-                        }
+                // Modify x-coordinate variation randomly by +/- RENDER.movementDistance (with randomness)
+                vertex[3] = Math.randomInRange(-Math.randomInRange(dr, d), Math.randomInRange(dr, d))
+                if (Math.abs(vertex[0] + vertex[3]) > halfWidth) {
+                    if (vertex[0] > 0) {
+                        vertex[3] = halfWidth - vertex[0]
+                    } else {
+                        vertex[3] = -halfWidth - vertex[0]
                     }
-
-                    // Modify y-coordinate variation randomly by +/- RENDER.movementDistance (with randomness)
-                    vertex[4] = Math.randomInRange(-Math.randomInRange(dr, d), Math.randomInRange(dr, d));
-                    if (Math.abs(vertex[1] + vertex[4]) > halfHeight) {
-                        if (vertex[1] > 0) {
-                            vertex[4] = halfHeight - vertex[1];
-                        } else {
-                            vertex[4] = -halfHeight - vertex[1];
-                        }
-                    }
-
-                    // Choose the frames required for the animation (with randomness)
-                    vertex[5] = 1 + Math.randomInRange(fr, f);
-                    if (vertex[5] < 10) {
-                        console.log(vertex[5]);
-                    }
-
-                    vertex[2] = 0;
                 }
 
-                // Modify the position by one frame
-                vertex[0] += vertex[3] / vertex[5];
-                vertex[1] += vertex[4] / vertex[5];
+                // Modify y-coordinate variation randomly by +/- RENDER.movementDistance (with randomness)
+                vertex[4] = Math.randomInRange(-Math.randomInRange(dr, d), Math.randomInRange(dr, d))
+                if (Math.abs(vertex[1] + vertex[4]) > halfHeight) {
+                    if (vertex[1] > 0) {
+                        vertex[4] = halfHeight - vertex[1]
+                    } else {
+                        vertex[4] = -halfHeight - vertex[1]
+                    }
+                }
 
-                vertex[2]++;
+                // Choose the frames required for the animation (with randomness)
+                vertex[5] = 1 + Math.randomInRange(fr, f)
+                if (vertex[5] < 10) {
+                    console.log(vertex[5])
+                }
+
+                vertex[2] = 0
             }
 
-            this.triangles = this.generateTriangles(this.vertices);
-        };
-    }
-    // Generates the triangles based on the given vertices
-    generateTriangles(vertices) {
-        triangleVertices = Delaunay.triangulate(vertices);
-        triangles = [];
+            // Modify the position by one frame
+            vertex[0] += vertex[3] / vertex[5]
+            vertex[1] += vertex[4] / vertex[5]
 
-        for (i = triangleVertices.length; i;) {
-            --i;
-            var p1 = [Math.ceil(vertices[triangleVertices[i]][0]), Math.ceil(vertices[triangleVertices[i]][1])];
-            --i;
-            var p2 = [Math.ceil(vertices[triangleVertices[i]][0]), Math.ceil(vertices[triangleVertices[i]][1])];
-            --i;
-            var p3 = [Math.ceil(vertices[triangleVertices[i]][0]), Math.ceil(vertices[triangleVertices[i]][1])];
-
-            t1 = new FSS.Triangle(new FSS.Vertex(p1[0], p1[1]), new FSS.Vertex(p2[0], p2[1]), new FSS.Vertex(p3[0], p3[1]));
-
-            triangles.push(t1);
+            vertex[2]++
         }
 
-        return triangles;
+        this.generateTriangles()
     }
-};
 
-FSS.Plane.prototype = Object.create(FSS.Geometry.prototype);
+    // Generates the triangles based on the given vertices
+    generateTriangles() {
+        var triangleVertices = Delaunay.triangulate(this.vertices)
+        this.triangles = []
 
+        for (var i = triangleVertices.length; i;) {
+            --i
+            var p1 = [Math.ceil(this.vertices[triangleVertices[i]][0]), Math.ceil(this.vertices[triangleVertices[i]][1])]
+                --i
+            var p2 = [Math.ceil(this.vertices[triangleVertices[i]][0]), Math.ceil(this.vertices[triangleVertices[i]][1])]
+                --i
+            var p3 = [Math.ceil(this.vertices[triangleVertices[i]][0]), Math.ceil(this.vertices[triangleVertices[i]][1])]
+
+            var t1 = new Triangle(new Vertex(p1[0], p1[1]), new Vertex(p2[0], p2[1]), new Vertex(p3[0], p3[1]))
+
+            this.triangles.push(t1)
+        }
+    }
+}
 
 /**
  * @class Material
  * @author Matthew Wagerfield
  */
-FSS.Material = class {
+class Material {
     constructor(ambient, diffuse) {
-        this.ambient = new FSS.Color(ambient || '#444444');
-        this.diffuse = new FSS.Color(diffuse || '#FFFFFF');
-        this.slave = new FSS.Color();
+        this.ambient = new Color(ambient || '#444444')
+        this.diffuse = new Color(diffuse || '#FFFFFF')
+        this.slave = new Color()
     }
-};
+}
 
 /**
  * @class Mesh
  * @author Matthew Wagerfield
  */
-FSS.Mesh = class {
+class Mesh extends FSSObject {
     constructor(geometry, material) {
-        FSS.Object.call(this);
-        this.geometry = geometry || new FSS.Geometry();
-        this.material = material || new FSS.Material();
-        this.side = FSS.FRONT;
-        this.visible = true;
+        super()
+
+        this.geometry = geometry || new Geometry()
+        this.material = material || new Material()
+        this.side = FSS.FRONT
+        this.visible = true
     }
+
     setGeometry(geometry) {
-        this.geometry = geometry || new FSS.Geometry();
+        this.geometry = geometry || new Geometry()
     }
+
     update(light, calculate) {
-        var t, triangle, light, illuminance;
+        var t, triangle, light, illuminance
 
         // Update Geometry
-        this.geometry.update();
+        this.geometry.update()
 
         // Calculate the triangle colors
         if (calculate) {
             // Iterate through Triangles
             for (t = this.geometry.triangles.length - 1; t >= 0; t--) {
-                triangle = this.geometry.triangles[t];
+                triangle = this.geometry.triangles[t]
 
                 // Reset Triangle Color
-                FSS.Vector4.set(triangle.color.rgba);
+                Vector4.set(triangle.color.rgba)
 
                 // Calculate Illuminance
-                FSS.Vector3.subtractVectors(light.ray, light.position, triangle.centroid);
-                FSS.Vector3.setX(light.ray, 0); // Light extends trough screen width
-                FSS.Vector3.normalise(light.ray);
+                Vector3.subtractVectors(light.ray, light.position, triangle.centroid)
+                Vector3.setX(light.ray, 0) // Light extends trough screen width
+                Vector3.normalise(light.ray)
 
-                illuminance = FSS.Vector3.dot(triangle.normal, light.ray);
+                illuminance = Vector3.dot(triangle.normal, light.ray)
                 if (this.side === FSS.FRONT) {
-                    illuminance = Math.max(illuminance, 0);
+                    illuminance = Math.max(illuminance, 0)
                 } else if (this.side === FSS.BACK) {
-                    illuminance = Math.abs(Math.min(illuminance, 0));
+                    illuminance = Math.abs(Math.min(illuminance, 0))
                 } else if (this.side === FSS.DOUBLE) {
-                    illuminance = Math.max(Math.abs(illuminance), 0);
+                    illuminance = Math.max(Math.abs(illuminance), 0)
                 }
 
                 // Calculate Ambient Light
-                FSS.Vector4.multiplyVectors(this.material.slave.rgba, this.material.ambient.rgba, light.ambient.rgba);
-                FSS.Vector4.add(triangle.color.rgba, this.material.slave.rgba);
+                Vector4.multiplyVectors(this.material.slave.rgba, this.material.ambient.rgba, light.ambient.rgba)
+                Vector4.add(triangle.color.rgba, this.material.slave.rgba)
 
                 // Calculate Diffuse Light
-                FSS.Vector4.multiplyVectors(this.material.slave.rgba, this.material.diffuse.rgba, light.diffuse.rgba);
-                FSS.Vector4.multiplyScalar(this.material.slave.rgba, illuminance);
-                FSS.Vector4.add(triangle.color.rgba, this.material.slave.rgba);
-                FSS.Vector4.add(triangle.lineColor.rgba, this.material.slave.rgba);
+                Vector4.multiplyVectors(this.material.slave.rgba, this.material.diffuse.rgba, light.diffuse.rgba)
+                Vector4.multiplyScalar(this.material.slave.rgba, illuminance)
+                Vector4.add(triangle.color.rgba, this.material.slave.rgba)
+
+                Vector4.multiplyScalar(triangle.lineColor.rgba, triangle.lineColor.opacity)
+                Vector4.add(triangle.lineColor.rgba, this.material.slave.rgba)
 
                 // Clamp & Format Color
-                FSS.Vector4.clamp(triangle.color.rgba, 0, 1);
-                FSS.Vector4.clamp(triangle.color.rgba, 0, 1);
+                Vector4.clamp(triangle.color.rgba, 0, 1)
+                Vector4.clamp(triangle.color.rgba, 0, 1)
             }
         }
-        return this;
-    }
-};
 
-FSS.Mesh.prototype = Object.create(FSS.Object.prototype);
+        return this
+    }
+}
 
 /**
  * @class Scene
  * @author Matthew Wagerfield
  */
-FSS.Scene = class {
+class Scene {
     constructor() {
-        this.meshes = [];
-        this.light = null;
+        this.meshes = []
+        this.light = null
     }
+
     add(object) {
-        if (object instanceof FSS.Mesh && !~this.meshes.indexOf(object)) {
-            this.meshes.push(object);
-        } else if (object instanceof FSS.Light) {
-            this.light = object;
+        if (object instanceof Mesh && !~this.meshes.indexOf(object)) {
+            this.meshes.push(object)
+        } else if (object instanceof Light) {
+            this.light = object
         }
-        return this;
+        return this
     }
+
     remove(object) {
-        if (object instanceof FSS.Mesh && ~this.meshes.indexOf(object)) {
-            this.meshes.splice(this.meshes.indexOf(object), 1);
-        } else if (object instanceof FSS.Light) {
-            this.light = null;
+        if (object instanceof Mesh && ~this.meshes.indexOf(object)) {
+            this.meshes.splice(this.meshes.indexOf(object), 1)
+        } else if (object instanceof Light) {
+            this.light = null
         }
-        return this;
+        return this
     }
-};
+}
 
 /**
  * @class Renderer
  * @author Matthew Wagerfield
  */
-FSS.Renderer = class {
+class Renderer {
     constructor() {
-        this.width = 0;
-        this.height = 0;
-        this.halfWidth = 0;
-        this.halfHeight = 0;
+        this.width = 0
+        this.height = 0
+        this.halfWidth = 0
+        this.halfHeight = 0
     }
-    setSize(width, height) {
-        if (this.width === width && this.height === height) return;
-        this.width = width;
-        this.height = height;
-        this.halfWidth = this.width * 0.5;
-        this.halfHeight = this.height * 0.5;
-        return this;
-    }
-    clear() {
-        return this;
-    }
-    render(scene) {
-        return this;
-    }
-};
 
-// #region CanvasRenderer
+    setSize(width, height) {
+        if (this.width === width && this.height === height) return
+        this.width = width
+        this.height = height
+        this.halfWidth = this.width * 0.5
+        this.halfHeight = this.height * 0.5
+        return this
+    }
+
+    clear() {
+        return this
+    }
+
+    render(scene) {
+        return this
+    }
+}
+
 /**
  * @class Canvas Renderer
  * @author Matthew Wagerfield
  */
-FSS.CanvasRenderer = class {
+class CanvasRenderer extends Renderer {
     constructor() {
-        FSS.Renderer.call(this);
-        this.element = document.createElement('canvas');
-        this.element.style.display = 'block';
-        this.context = this.element.getContext('2d');
-        this.setSize(this.element.width, this.element.height);
+        super()
+
+        this.element = document.createElement('canvas')
+        this.element.style.display = 'block'
+        this.context = this.element.getContext('2d')
+        this.setSize(this.element.width, this.element.height)
     }
+
     setSize(width, height) {
-        FSS.Renderer.prototype.setSize.call(this, width, height);
-        this.element.width = width;
-        this.element.height = height;
-        this.context.setTransform(1, 0, 0, -1, this.halfWidth, this.halfHeight);
-        return this;
+        Renderer.prototype.setSize.call(this, width, height)
+        this.element.width = width
+        this.element.height = height
+        this.context.setTransform(1, 0, 0, -1, this.halfWidth, this.halfHeight)
+        return this
     }
+
     clear() {
-        FSS.Renderer.prototype.clear.call(this);
-        this.context.clearRect(-this.halfWidth, -this.halfHeight, this.width, this.height);
-        return this;
+        super.clear()
+        this.context.clearRect(-this.halfWidth, -this.halfHeight, this.width, this.height)
+        return this
     }
+
     render(scene) {
-        FSS.Renderer.prototype.render.call(this, scene);
-        var m, mesh, t, triangle, color;
+        Renderer.prototype.render.call(this, scene)
+        var m, mesh, t, triangle, color
 
         // Clear Context
-        this.clear();
+        this.clear()
 
         // Configure Context
-        this.context.lineJoin = 'round';
-        this.context.lineWidth = 1;
+        this.context.lineJoin = 'round'
+        this.context.lineWidth = 1
 
         // Update Meshes
         for (m = scene.meshes.length - 1; m >= 0; m--) {
-            mesh = scene.meshes[m];
+            mesh = scene.meshes[m]
             if (mesh.visible) {
-                mesh.update(scene.light, true);
+                mesh.update(scene.light, true)
 
                 // Render Triangles
                 for (t = mesh.geometry.triangles.length - 1; t >= 0; t--) {
-                    triangle = mesh.geometry.triangles[t];
+                    triangle = mesh.geometry.triangles[t]
 
-                    strokeColor = triangle.lineColor.format();
-                    fillColor = triangle.color.format();
+                    var strokeColor = triangle.lineColor.format()
+                    var fillColor = triangle.color.format()
 
-                    this.context.beginPath();
-                    this.context.moveTo(triangle.a.position[0], triangle.a.position[1]);
-                    this.context.lineTo(triangle.b.position[0], triangle.b.position[1]);
-                    this.context.lineTo(triangle.c.position[0], triangle.c.position[1]);
-                    this.context.closePath();
+                    this.context.beginPath()
+                    this.context.moveTo(triangle.a.position[0], triangle.a.position[1])
+                    this.context.lineTo(triangle.b.position[0], triangle.b.position[1])
+                    this.context.lineTo(triangle.c.position[0], triangle.c.position[1])
+                    this.context.closePath()
 
-                    this.context.strokeStyle = strokeColor;
-                    this.context.stroke();
+                    this.context.strokeStyle = strokeColor
+                    this.context.stroke()
 
-                    this.context.fillStyle = fillColor;
-                    this.context.fill();
+                    this.context.fillStyle = fillColor
+                    this.context.fill()
                 }
             }
         }
-        return this;
+
+        return this
     }
-};
+}
 
-FSS.CanvasRenderer.prototype = Object.create(FSS.Renderer.prototype);
-// #endregion
-
-// #region WebGLRenderer
 /**
  * @class WebGL Renderer
  * @author Matthew Wagerfield
  */
-FSS.WebGLRenderer = class {
+class WebGLRenderer extends Renderer {
     constructor() {
-        FSS.Renderer.call(this);
-        this.element = document.createElement('canvas');
-        this.element.style.display = 'block';
+        super()
+
+        this.element = document.createElement('canvas')
+        this.element.style.display = 'block'
 
         // Set initial vertex and light count
-        this.vertices = null;
-        this.light = null;
+        this.vertices = null
+        this.light = null
 
         // Create parameters object
         var parameters = {
@@ -1120,147 +1178,155 @@ FSS.WebGLRenderer = class {
             antialias: true,
             stencil: true,
             alpha: true
-        };
+        }
 
         // Create and configure the gl context
-        this.gl = this.getContext(this.element, parameters);
+        this.gl = this.getContext(this.element, parameters)
 
         // Set the internal support flag
-        this.unsupported = !this.gl;
+        this.unsupported = !this.gl
 
         // Setup renderer
         if (this.unsupported) {
-            return 'WebGL is not supported by your browser.';
+            return 'WebGL is not supported by your browser.'
         } else {
-            this.gl.clearColor(0.0, 0.0, 0.0, 0.0);
-            this.gl.enable(this.gl.DEPTH_TEST);
-            this.setSize(this.element.width, this.element.height);
+            this.gl.clearColor(0.0, 0.0, 0.0, 0.0)
+            this.gl.enable(this.gl.DEPTH_TEST)
+            this.setSize(this.element.width, this.element.height)
         }
     }
+
     static VS(light) {
         var shader = [
             // Precision
-            'precision mediump float;',
+            'precision mediump float',
 
             // Attributes
-            'attribute int aSide;',
-            'attribute vec3 aPosition;',
-            'attribute vec3 aCentroid;',
-            'attribute vec3 aNormal;',
-            'attribute vec4 aAmbient;',
-            'attribute vec4 aDiffuse;',
+            'attribute int aSide',
+            'attribute vec3 aPosition',
+            'attribute vec3 aCentroid',
+            'attribute vec3 aNormal',
+            'attribute vec4 aAmbient',
+            'attribute vec4 aDiffuse',
 
             // Uniforms
-            'uniform vec3 uResolution;',
-            'uniform vec3 lightPosition;',
-            'uniform vec4 lightAmbient;',
-            'uniform vec4 uLightDiffuse;',
+            'uniform vec3 uResolution',
+            'uniform vec3 lightPosition',
+            'uniform vec4 lightAmbient',
+            'uniform vec4 uLightDiffuse',
 
             // Varyings
-            'varying vec4 vColor;',
+            'varying vec4 vColor',
 
             // Main
             'void main() {',
 
             // Create color
-            'vColor = vec4(0.0);',
+            'vColor = vec4(0.0)',
 
             // Calculate the vertex position
-            'vec3 position = aPosition / uResolution * 2.0;',
+            'vec3 position = aPosition / uResolution * 2.0',
 
             // Calculate illuminance
-            'vec3 ray = normalize(lightPosition - aCentroid);',
-            'float illuminance = dot(aNormal, ray);',
+            'vec3 ray = normalize(lightPosition - aCentroid)',
+            'float illuminance = dot(aNormal, ray)',
 
             'if (aSide == 0) {',
-            'illuminance = max(illuminance, 0.0);',
+            'illuminance = max(illuminance, 0.0)',
             '} else if (aSide == 1) {',
-            'illuminance = abs(min(illuminance, 0.0));',
+            'illuminance = abs(min(illuminance, 0.0))',
             '} else if (aSide == 2) {',
-            'illuminance = max(abs(illuminance), 0.0);',
+            'illuminance = max(abs(illuminance), 0.0)',
             '}',
 
             // Calculate ambient light
-            'vColor += aAmbient * lightAmbient;',
+            'vColor += aAmbient * lightAmbient',
 
             // Calculate diffuse light
-            'vColor += aDiffuse * lightDiffuse * illuminance;',
+            'vColor += aDiffuse * lightDiffuse * illuminance',
 
             // Clamp color
-            'vColor = clamp(vColor, 0.0, 1.0);',
+            'vColor = clamp(vColor, 0.0, 1.0)',
 
             // Set gl_Position
-            'gl_Position = vec4(position, 1.0);',
+            'gl_Position = vec4(position, 1.0)',
 
             '}'
-        ].join('\n');
+        ].join('\n')
 
         // Return the shader
-        return shader;
+        return shader
     }
+
     static FS(light) {
         var shader = [
             // Precision
-            'precision mediump float;',
+            'precision mediump float',
 
             // Varyings
-            'varying vec4 vColor;',
+            'varying vec4 vColor',
 
             // Main
             'void main() {',
 
             // Set gl_FragColor
-            'gl_FragColor = vColor;',
+            'gl_FragColor = vColor',
 
             '}'
             // Return the shader
-        ].join('\n');
-        return shader;
+        ].join('\n')
+        return shader
     }
+
     getContext(canvas, parameters) {
-        var context = false;
+        var context = false
         try {
             if (!(context = canvas.getContext('experimental-webgl', parameters))) {
-                throw 'Error creating WebGL context.';
+                throw 'Error creating WebGL context.'
             }
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
-        return context;
+        return context
     }
+
     setSize(width, height) {
-        FSS.Renderer.prototype.setSize.call(this, width, height);
-        if (this.unsupported) return;
+        Renderer.prototype.setSize.call(this, width, height)
+        if (this.unsupported) return
 
         // Set the size of the canvas element
-        this.element.width = width;
-        this.element.height = height;
+        this.element.width = width
+        this.element.height = height
 
         // Set the size of the gl viewport
-        this.gl.viewport(0, 0, width, height);
-        return this;
+        this.gl.viewport(0, 0, width, height)
+        return this
     }
+
     clear() {
-        FSS.Renderer.prototype.clear.call(this);
-        if (this.unsupported) return;
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        return this;
+        Renderer.prototype.clear.call(this)
+        if (this.unsupported) return
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT)
+        return this
     }
+
     render(scene) {
-        FSS.Renderer.prototype.render.call(this, scene);
-        if (this.unsupported) return;
-        var m, mesh, t, tl, triangle, l, light, attribute, uniform, buffer, data, location, update = false, light = scene.light, index, v, vl, vertex, vertices = 0;
+        Renderer.prototype.render.call(this, scene)
+        if (this.unsupported) return
+        var m, mesh, t, tl, triangle, l, light, attribute, uniform, buffer, data, location, update = false,
+            light = scene.light,
+            index, v, vl, vertex, vertices = 0
 
         // Clear context
-        this.clear();
+        this.clear()
 
         // Build the shader program
         if (this.light !== light) {
-            this.light = light;
+            this.light = light
             if (this.light != null) {
-                this.buildProgram(light);
+                this.buildProgram(light)
             } else {
-                return;
+                return
             }
         }
 
@@ -1269,146 +1335,148 @@ FSS.WebGLRenderer = class {
 
             // Increment vertex counter
             for (m = scene.meshes.length - 1; m >= 0; m--) {
-                mesh = scene.meshes[m];
-                if (mesh.geometry.dirty) update = true;
-                mesh.update(scene.light, false);
-                vertices += mesh.geometry.triangles.length * 3;
+                mesh = scene.meshes[m]
+                if (mesh.geometry.dirty) update = true
+                mesh.update(scene.light, false)
+                vertices += mesh.geometry.triangles.length * 3
             }
 
             // Compare vertex counter
             if (update || this.vertices !== vertices) {
-                this.vertices = vertices;
+                this.vertices = vertices
 
                 // Build buffers
                 for (attribute in this.program.attributes) {
-                    buffer = this.program.attributes[attribute];
-                    buffer.data = new FSS.Array(vertices * buffer.size);
+                    buffer = this.program.attributes[attribute]
+                    buffer.data = new Array(vertices * buffer.size)
 
                     // Reset vertex index
-                    index = 0;
+                    index = 0
 
                     // Update attribute buffer data
                     for (m = scene.meshes.length - 1; m >= 0; m--) {
-                        mesh = scene.meshes[m];
+                        mesh = scene.meshes[m]
 
                         for (t = 0, tl = mesh.geometry.triangles.length; t < tl; t++) {
-                            triangle = mesh.geometry.triangles[t];
+                            triangle = mesh.geometry.triangles[t]
 
                             for (v = 0, vl = triangle.vertices.length; v < vl; v++) {
-                                vertex = triangle.vertices[v];
+                                vertex = triangle.vertices[v]
                                 switch (attribute) {
                                     case 'side':
-                                        this.setBufferData(index, buffer, mesh.side);
-                                        break;
+                                        this.setBufferData(index, buffer, mesh.side)
+                                        break
                                     case 'position':
-                                        this.setBufferData(index, buffer, vertex.position);
-                                        break;
+                                        this.setBufferData(index, buffer, vertex.position)
+                                        break
                                     case 'centroid':
-                                        this.setBufferData(index, buffer, triangle.centroid);
-                                        break;
+                                        this.setBufferData(index, buffer, triangle.centroid)
+                                        break
                                     case 'normal':
-                                        this.setBufferData(index, buffer, triangle.normal);
-                                        break;
+                                        this.setBufferData(index, buffer, triangle.normal)
+                                        break
                                     case 'ambient':
-                                        this.setBufferData(index, buffer, mesh.material.ambient.rgba);
-                                        break;
+                                        this.setBufferData(index, buffer, mesh.material.ambient.rgba)
+                                        break
                                     case 'diffuse':
-                                        this.setBufferData(index, buffer, mesh.material.diffuse.rgba);
-                                        break;
+                                        this.setBufferData(index, buffer, mesh.material.diffuse.rgba)
+                                        break
                                 }
-                                index++;
+                                index++
                             }
                         }
                     }
 
                     // Upload attribute buffer data
-                    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer.buffer);
-                    this.gl.bufferData(this.gl.ARRAY_BUFFER, buffer.data, this.gl.DYNAMIC_DRAW);
-                    this.gl.enableVertexAttribArray(buffer.location);
-                    this.gl.vertexAttribPointer(buffer.location, buffer.size, this.gl.FLOAT, false, 0, 0);
+                    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer.buffer)
+                    this.gl.bufferData(this.gl.ARRAY_BUFFER, buffer.data, this.gl.DYNAMIC_DRAW)
+                    this.gl.enableVertexAttribArray(buffer.location)
+                    this.gl.vertexAttribPointer(buffer.location, buffer.size, this.gl.FLOAT, false, 0, 0)
                 }
             }
 
             // Build uniform buffers
-            this.setBufferData(0, this.program.uniforms.resolution, [this.width, this.height, this.width]);
-            light = scene.light;
-            this.setBufferData(this.program.uniforms.lightPosition, light.position);
-            this.setBufferData(this.program.uniforms.lightAmbient, light.ambient.rgba);
-            this.setBufferData(this.program.uniforms.lightDiffuse, light.diffuse.rgba);
+            this.setBufferData(0, this.program.uniforms.resolution, [this.width, this.height, this.width])
+            light = scene.light
+            this.setBufferData(this.program.uniforms.lightPosition, light.position)
+            this.setBufferData(this.program.uniforms.lightAmbient, light.ambient.rgba)
+            this.setBufferData(this.program.uniforms.lightDiffuse, light.diffuse.rgba)
 
             // Update uniforms
             for (uniform in this.program.uniforms) {
-                buffer = this.program.uniforms[uniform];
-                location = buffer.location;
-                data = buffer.data;
+                buffer = this.program.uniforms[uniform]
+                location = buffer.location
+                data = buffer.data
                 switch (buffer.structure) {
                     case '3f':
-                        this.gl.uniform3f(location, data[0], data[1], data[2]);
-                        break;
+                        this.gl.uniform3f(location, data[0], data[1], data[2])
+                        break
                     case '3fv':
-                        this.gl.uniform3fv(location, data);
-                        break;
+                        this.gl.uniform3fv(location, data)
+                        break
                     case '4fv':
-                        this.gl.uniform4fv(location, data);
-                        break;
+                        this.gl.uniform4fv(location, data)
+                        break
                 }
             }
         }
 
         // Draw those lovely triangles
-        this.gl.drawArrays(this.gl.TRIANGLES, 0, this.vertices);
-        return this;
+        this.gl.drawArrays(this.gl.TRIANGLES, 0, this.vertices)
+        return this
     }
+
     setBufferData(buffer, value) {
-        if (FSS.Utils.isNumber(value)) {
-            buffer.data[buffer.size] = value;
+        if (Utils.isNumber(value)) {
+            buffer.data[buffer.size] = value
         } else {
             for (var i = value.length - 1; i >= 0; i--) {
-                buffer.data[buffer.size + i] = value[i];
+                buffer.data[buffer.size + i] = value[i]
             }
         }
     }
+
     /**
      * Concepts taken from three.js WebGLRenderer
      * @see https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js
      */
     buildProgram(light) {
-        if (this.unsupported) return;
+        if (this.unsupported) return
 
         // Create shader source
-        var vs = FSS.WebGLRenderer.VS(light);
-        var fs = FSS.WebGLRenderer.FS(light);
+        var vs = WebGLRenderer.VS(light)
+        var fs = WebGLRenderer.FS(light)
 
         // Derive the shader fingerprint
-        var code = vs + fs;
+        var code = vs + fs
 
         // Check if the program has already been compiled
-        if (!!this.program && this.program.code === code) return;
+        if (!!this.program && this.program.code === code) return
 
         // Create the program and shaders
-        var program = this.gl.createProgram();
-        var vertexShader = this.buildShader(this.gl.VERTEX_SHADER, vs);
-        var fragmentShader = this.buildShader(this.gl.FRAGMENT_SHADER, fs);
+        var program = this.gl.createProgram()
+        var vertexShader = this.buildShader(this.gl.VERTEX_SHADER, vs)
+        var fragmentShader = this.buildShader(this.gl.FRAGMENT_SHADER, fs)
 
         // Attach an link the shader
-        this.gl.attachShader(program, vertexShader);
-        this.gl.attachShader(program, fragmentShader);
-        this.gl.linkProgram(program);
+        this.gl.attachShader(program, vertexShader)
+        this.gl.attachShader(program, fragmentShader)
+        this.gl.linkProgram(program)
 
         // Add error handling
         if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
-            var error = this.gl.getError();
-            var status = this.gl.getProgramParameter(program, this.gl.VALIDATE_STATUS);
-            console.error('Could not initialise shader.\nVALIDATE_STATUS: ' + status + '\nERROR: ' + error);
-            return null;
+            var error = this.gl.getError()
+            var status = this.gl.getProgramParameter(program, this.gl.VALIDATE_STATUS)
+            console.error('Could not initialise shader.\nVALIDATE_STATUS: ' + status + '\nERROR: ' + error)
+            return null
         }
 
         // Delete the shader
-        this.gl.deleteShader(fragmentShader);
-        this.gl.deleteShader(vertexShader);
+        this.gl.deleteShader(fragmentShader)
+        this.gl.deleteShader(vertexShader)
 
         // Set the program code
-        program.code = code;
+        program.code = code
 
         // Add the program attributes
         program.attributes = {
@@ -1418,7 +1486,7 @@ FSS.WebGLRenderer = class {
             normal: this.buildBuffer(program, 'attribute', 'aNormal', 3, 'v3'),
             ambient: this.buildBuffer(program, 'attribute', 'aAmbient', 4, 'v4'),
             diffuse: this.buildBuffer(program, 'attribute', 'aDiffuse', 4, 'v4')
-        };
+        }
 
         // Add the program uniforms
         program.uniforms = {
@@ -1426,131 +1494,132 @@ FSS.WebGLRenderer = class {
             lightPosition: this.buildBuffer(program, 'uniform', 'uLightPosition', 3, '3fv', light),
             lightAmbient: this.buildBuffer(program, 'uniform', 'uLightAmbient', 4, '4fv', light),
             lightDiffuse: this.buildBuffer(program, 'uniform', 'uLightDiffuse', 4, '4fv', light)
-        };
+        }
 
         // Set the renderer program
-        this.program = program;
+        this.program = program
 
         // Enable program
-        this.gl.useProgram(this.program);
+        this.gl.useProgram(this.program)
 
         // Return the program
-        return program;
+        return program
     }
+
     buildShader(type, source) {
-        if (this.unsupported) return;
+        if (this.unsupported) return
 
         // Create and compile shader
-        var shader = this.gl.createShader(type);
-        this.gl.shaderSource(shader, source);
-        this.gl.compileShader(shader);
+        var shader = this.gl.createShader(type)
+        this.gl.shaderSource(shader, source)
+        this.gl.compileShader(shader)
 
         // Add error handling
         if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-            console.error(this.gl.getShaderInfoLog(shader));
-            return null;
+            console.error(this.gl.getShaderInfoLog(shader))
+            return null
         }
 
         // Return the shader
-        return shader;
+        return shader
     }
+
     buildBuffer(program, type, identifier, size, structure, count) {
         var buffer = {
             buffer: this.gl.createBuffer(),
             size: size,
             structure: structure,
             data: null
-        };
+        }
 
         // Set the location
         switch (type) {
             case 'attribute':
-                buffer.location = this.gl.getAttribLocation(program, identifier);
-                break;
+                buffer.location = this.gl.getAttribLocation(program, identifier)
+                break
             case 'uniform':
-                buffer.location = this.gl.getUniformLocation(program, identifier);
-                break;
+                buffer.location = this.gl.getUniformLocation(program, identifier)
+                break
         }
 
         // Create the buffer if count is provided
         if (!!count) {
-            buffer.data = new FSS.Array(count * size);
+            buffer.data = new Array(count * size)
         }
 
         // Return the buffer
-        return buffer;
+        return buffer
     }
-};
+}
 
-FSS.WebGLRenderer.prototype = Object.create(FSS.Renderer.prototype);
-// #endregion
-
-// #region SVGRenderer
 /**
  * @class SVG Renderer
  * @author Matthew Wagerfield
  */
-FSS.SVGRenderer = class {
+class SVGRenderer extends Renderer {
     constructor() {
-        FSS.Renderer.call(this);
-        this.element = document.createElementNS(FSS.SVGNS, 'svg');
-        this.element.setAttribute('xmlns', FSS.SVGNS);
-        this.element.setAttribute('version', '1.1');
-        this.element.style.display = 'block';
-        this.setSize(300, 150);
+        super()
+
+        this.element = document.createElementNS(FSS.SVGNS, 'svg')
+        this.element.setAttribute('xmlns', FSS.SVGNS)
+        this.element.setAttribute('version', '1.1')
+        this.element.style.display = 'block'
+        this.setSize(300, 150)
     }
+
     setSize(width, height) {
-        FSS.Renderer.prototype.setSize.call(this, width, height);
-        this.element.setAttribute('width', width);
-        this.element.setAttribute('height', height);
-        return this;
+        Renderer.prototype.setSize.call(this, width, height)
+        this.element.setAttribute('width', width)
+        this.element.setAttribute('height', height)
+        return this
     }
+
     clear() {
-        FSS.Renderer.prototype.clear.call(this);
+        Renderer.prototype.clear.call(this)
         for (var i = this.element.childNodes.length - 1; i >= 0; i--) {
-            this.element.removeChild(this.element.childNodes[i]);
+            this.element.removeChild(this.element.childNodes[i])
         }
-        return this;
+        return this
     }
+
     render(scene) {
-        FSS.Renderer.prototype.render.call(this, scene);
-        var m, mesh, t, triangle, points, style;
+        Renderer.prototype.render.call(this, scene)
+        var m, mesh, t, triangle, points, style
 
         // Update Meshes
         for (m = scene.meshes.length - 1; m >= 0; m--) {
-            mesh = scene.meshes[m];
+            mesh = scene.meshes[m]
             if (mesh.visible) {
-                mesh.update(scene.light, true);
+                mesh.update(scene.light, true)
 
                 // Render Triangles
                 for (t = mesh.geometry.triangles.length - 1; t >= 0; t--) {
-                    triangle = mesh.geometry.triangles[t];
+                    triangle = mesh.geometry.triangles[t]
                     if (triangle.polygon.parentNode !== this.element) {
-                        this.element.appendChild(triangle.polygon);
+                        this.element.appendChild(triangle.polygon)
                     }
-                    points = this.formatPoint(triangle.a) + ' ';
-                    points += this.formatPoint(triangle.b) + ' ';
-                    points += this.formatPoint(triangle.c);
-                    style = this.formatStyle(triangle.color.format());
-                    triangle.polygon.setAttributeNS(null, 'points', points);
-                    triangle.polygon.setAttributeNS(null, 'style', style);
+                    points = this.formatPoint(triangle.a) + ' '
+                    points += this.formatPoint(triangle.b) + ' '
+                    points += this.formatPoint(triangle.c)
+                    style = this.formatStyle(triangle.color.format())
+                    triangle.polygon.setAttributeNS(null, 'points', points)
+                    triangle.polygon.setAttributeNS(null, 'style', style)
                 }
             }
         }
-        return this;
+        return this
     }
-    formatPoint(vertex) {
-        return (this.halfWidth + vertex.position[0]) + ',' + (this.halfHeight - vertex.position[1]);
-    }
-    formatStyle(color) {
-        var style = 'fill:' + color + ';';
-        style += 'stroke:' + color + ';';
-        return style;
-    }
-};
 
-FSS.SVGRenderer.prototype = Object.create(FSS.Renderer.prototype);
-// #endregion
+    formatPoint(vertex) {
+        return (this.halfWidth + vertex.position[0]) + ',' + (this.halfHeight - vertex.position[1])
+    }
+
+    formatStyle(color) {
+        var style = 'fill:' + color + ''
+        style += 'stroke:' + color + ''
+        return style
+    }
+}
 // #endregion
 
 // #region dat-gui
@@ -1621,8 +1690,8 @@ dat.utils.common = function () {
                 for (var b = 0, n = a.length; b < n; b++) {
                     if (b in a && d.call(f, a[b], b) === this.BREAK) break
                 } else
-                for (b in a)
-                    if (d.call(f, a[b], b) === this.BREAK) break
+                    for (b in a)
+                        if (d.call(f, a[b], b) === this.BREAK) break
         },
         defer: function (a) {
             setTimeout(a, 0)
@@ -1643,8 +1712,7 @@ dat.utils.common = function () {
             return a.constructor === Array
         },
         isObject: function (a) {
-            return a ===
-                Object(a)
+            return a === Object(a)
         },
         isNumber: function (a) {
             return a === a + 0
@@ -1715,8 +1783,8 @@ dat.dom.dom = function (e) {
         f = {
             makeSelectable: function (b, a) {
                 if (!(b === void 0 || b.style === void 0)) b.onselectstart = a ? function () {
-                    return false
-                } : function () { }, b.style.MozUserSelect = a ? "auto" : "none", b.style.KhtmlUserSelect =
+                        return false
+                    } : function () {}, b.style.MozUserSelect = a ? "auto" : "none", b.style.KhtmlUserSelect =
                     a ? "auto" : "none", b.unselectable = a ? "on" : "off"
             },
             makeFullscreen: function (b, a, d) {
@@ -2121,11 +2189,11 @@ dat.color.interpret = function (e, a) {
                 read: function (a) {
                     return a.length !=
                         3 ? false : {
-                        space: "RGB",
-                        r: a[0],
-                        g: a[1],
-                        b: a[2]
-                    }
+                            space: "RGB",
+                            r: a[0],
+                            g: a[1],
+                            b: a[2]
+                        }
                 },
                 write: function (a) {
                     return [a.r, a.g, a.b]
@@ -2172,11 +2240,11 @@ dat.color.interpret = function (e, a) {
                 read: function (b) {
                     return a.isNumber(b.r) &&
                         a.isNumber(b.g) && a.isNumber(b.b) ? {
-                        space: "RGB",
-                        r: b.r,
-                        g: b.g,
-                        b: b.b
-                    } : false
+                            space: "RGB",
+                            r: b.r,
+                            g: b.g,
+                            b: b.b
+                        } : false
                 },
                 write: function (a) {
                     return {
@@ -2702,8 +2770,8 @@ dat.GUI = dat.gui.GUI = function (e, a, c, d, f, b, n, h, j, m, l, o, y, g, i) {
     k.TEXT_CLOSED = "Close Controls";
     k.TEXT_OPEN = "Open Controls";
     g.bind(window, "keydown", function (a) {
-        document.activeElement.type !== "text" && (a.which === 72 || a.keyCode == 72) && k.toggleHide()
-    },
+            document.activeElement.type !== "text" && (a.which === 72 || a.keyCode == 72) && k.toggleHide()
+        },
         false);
     i.extend(k.prototype, {
         add: function (a, b) {
@@ -2859,11 +2927,11 @@ dat.GUI = dat.gui.GUI = function (e, a, c, d, f, b, n, h, j, m, l, o, y, g, i) {
         d.superclass = e;
         c.extend(d.prototype,
             e.prototype, {
-            updateDisplay: function () {
-                if (!a.isActive(this.__input)) this.__input.value = this.getValue();
-                return d.superclass.prototype.updateDisplay.call(this)
-            }
-        });
+                updateDisplay: function () {
+                    if (!a.isActive(this.__input)) this.__input.value = this.getValue();
+                    return d.superclass.prototype.updateDisplay.call(this)
+                }
+            });
         return d
     }(dat.controllers.Controller, dat.dom.dom, dat.utils.common), dat.controllers.FunctionController, dat.controllers.BooleanController, dat.utils.common), dat.controllers.Controller, dat.controllers.BooleanController, dat.controllers.FunctionController, dat.controllers.NumberControllerBox, dat.controllers.NumberControllerSlider, dat.controllers.OptionController,
     dat.controllers.ColorController = function (e, a, c, d, f) {
@@ -3364,7 +3432,7 @@ var EXPORT = {
         x = light.position[0];
         y = light.position[1];
         z = light.position[2];
-        FSS.Vector3.set(light.position, x * scalarX, y * scalarY, z * scalarX);
+        Vector3.set(light.position, x * scalarX, y * scalarY, z * scalarX);
 
         // Render the canvas
         render();
@@ -3388,14 +3456,14 @@ var EXPORT = {
         light = scene.light;
         y = light.position[1];
         z = light.position[2];
-        FSS.Vector3.set(light.position, 0, y / scalarY, z / scalarX);
+        Vector3.set(light.position, 0, y / scalarY, z / scalarX);
     }
 };
 
 //------------------------------
 // Global Properties
 //------------------------------
-var center = FSS.Vector3.create();
+var center = Vector3.create();
 var container = document.getElementById('container');
 var output = document.getElementById('output');
 var renderer, scene, mesh, geometry, material, light;
@@ -3417,9 +3485,9 @@ function main() {
 }
 
 function createRenderer() {
-    webglRenderer = new FSS.WebGLRenderer();
-    canvasRenderer = new FSS.CanvasRenderer();
-    svgRenderer = new FSS.SVGRenderer();
+    webglRenderer = new WebGLRenderer();
+    canvasRenderer = new CanvasRenderer();
+    svgRenderer = new SVGRenderer();
     setRenderer(RENDER.renderer);
 }
 
@@ -3443,16 +3511,16 @@ function setRenderer(index) {
 }
 
 function createScene() {
-    scene = new FSS.Scene();
+    scene = new Scene();
 }
 
 function createMesh() {
     scene.remove(mesh);
     renderer.clear();
 
-    geometry = new FSS.Plane(MESH.width * renderer.width, MESH.height * renderer.height, MESH.slices);
-    material = new FSS.Material(MESH.ambient, MESH.diffuse);
-    mesh = new FSS.Mesh(geometry, material);
+    geometry = new Plane(MESH.width * renderer.width, MESH.height * renderer.height, MESH.slices);
+    material = new Material(MESH.ambient, MESH.diffuse);
+    mesh = new Mesh(geometry, material);
 
     scene.add(mesh);
 }
@@ -3460,7 +3528,7 @@ function createMesh() {
 function createLight(width, height) {
     renderer.clear();
 
-    light = new FSS.Light(LIGHT.ambient, LIGHT.diffuse);
+    light = new Light(LIGHT.ambient, LIGHT.diffuse);
     LIGHT.object = light;
 
     light.ambientHex = light.ambient.format();
@@ -3472,7 +3540,7 @@ function createLight(width, height) {
 
 function updateLightPosition(width, height) {
     LIGHT.xPos = 0;
-    LIGHT.yPos = - height / 2;
+    LIGHT.yPos = -height / 2;
     LIGHT.zOffset = height / 4;
 
     LIGHT.object.setPosition(LIGHT.xPos, LIGHT.yPos, LIGHT.zOffset);
@@ -3497,7 +3565,7 @@ function animate() {
 // Resize canvas
 function resize(width, height) {
     renderer.setSize(width, height);
-    FSS.Vector3.set(center, renderer.halfWidth, renderer.halfHeight);
+    Vector3.set(center, renderer.halfWidth, renderer.halfHeight);
     createMesh();
 
     updateLightPosition(width, height);
@@ -3549,23 +3617,18 @@ function livelyPropertyListener(name, val) {
             break;
         case "movementSpeed":
             RENDER.movementFrames = 301 - val;
-            createMesh();
             break;
         case "movementDistance":
             RENDER.movementDistance = val;
-            createMesh();
             break;
         case "movementRandomness":
             RENDER.movementRandomness = 1 - (val / 100);
-            createMesh();
             break;
         case "borderColor":
             MESH.borderColor = val;
-            createMesh();
             break;
         case "borderOpacity":
             MESH.borderOpacity = val / 100;
-            createMesh();
             break;
     }
 }

@@ -80,7 +80,7 @@
         "value": "#000000"
     },
     "borderOpacity": {
-        "max": 1,
+        "max": 100,
         "min": 0,
         "text": "Opacity",
         "type": "slider",
