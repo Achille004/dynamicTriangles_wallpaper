@@ -45,7 +45,7 @@
     },
     "label3": {
         "type": "label",
-        "value": "Particle Movement"
+        "value": "Vertices Movement"
     },
     "movementSpeed": {
         "max": 300,
@@ -67,5 +67,23 @@
         "text": "Randomness",
         "type": "slider",
         "value": 10
+    },
+    "label4": {
+        "type": "label",
+        "value": "Triangle Borders"
+    },
+    "borderColor": {
+        "max": 100,
+        "min": 0,
+        "text": "Color",
+        "type": "color",
+        "value": "#000000"
+    },
+    "borderOpacity": {
+        "max": 100,
+        "min": 0,
+        "text": "Opacity",
+        "type": "slider",
+        "value": 100
     }
 }
