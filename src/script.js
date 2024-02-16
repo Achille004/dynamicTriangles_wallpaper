@@ -3568,10 +3568,7 @@ function render() {
 
 function addEventListeners() {
     window.addEventListener('resize', onWindowResize)
-
-    if (MOUSE.detect) {
-        container.addEventListener('mousemove', onMouseMove)
-    }
+    container.addEventListener('mousemove', onMouseMove)
 }
 
 function animate() {
@@ -3598,8 +3595,10 @@ function onWindowResize(event) {
 }
 
 function onMouseMove(event) {
-    MOUSE.x = event.x
-    MOUSE.y = event.y
+    if(MOUSE.detect) {
+        MOUSE.x = event.x
+        MOUSE.y = event.y
+    }
 }
 
 main()
