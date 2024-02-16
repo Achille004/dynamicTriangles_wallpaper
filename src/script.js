@@ -840,11 +840,11 @@ class Plane extends Geometry {
         var offsetX = width * -0.5,
             offsetY = height * 0.5
 
-        for (i = this.vertices.length; i--;) {
+        for (i = 0; i < this.vertices.length; i++) {
             x = offsetX + Math.random() * width
             y = offsetY - Math.random() * height
 
-            this.vertices[i] = [x, y]
+            this.vertices[i] = [x, y, -1]
         }
 
         // Generate additional points on the perimeter so that there are no holes in the pattern
@@ -858,19 +858,17 @@ class Plane extends Geometry {
         this.vertices.push([offsetX, offsetY - height / 2])
 
         // Generate additional randomly placed points on the perimeter
-        for (var i = 6; i >= 0; i--) {
+        for (var i = 0; i < 7; i++) {
             this.vertices.push([offsetX + Math.random() * width, offsetY])
             this.vertices.push([offsetX, offsetY - Math.random() * height])
             this.vertices.push([offsetX + width, offsetY - Math.random() * height])
             this.vertices.push([offsetX + Math.random() * width, offsetY - height])
         }
 
-        // Create an array of triangulated coordinates from our vertices
-        this.generateTriangles()
+        this.vertices.push([0, 0])
 
-        for (var i = 0; i < this.vertices.length; i++) {
-            this.vertices[i][2] = -1
-        }
+        // Create an array of triangulated coordinates from our vertices
+        this.generateTriangles(width / 2, height / 2, howmany)
     }
 
     // Update function to move vertices
@@ -922,11 +920,16 @@ class Plane extends Geometry {
             vertex[2]++
         }
 
-        this.generateTriangles()
+        if (MOUSE.x != undefined && MOUSE.y != undefined) {
+            // 36 = (8 + 7*4) extra vertices on the borders
+            this.vertices[howmany + 36] = [MOUSE.x - halfWidth, halfHeight - MOUSE.y]
+        }
+
+        this.generateTriangles(halfWidth, halfHeight, howmany)
     }
 
     // Generates the triangles based on the given vertices
-    generateTriangles() {
+    generateTriangles(halfWidth, halfHeight, howmany) {
         var triangleVertices = Delaunay.triangulate(this.vertices)
         this.triangles = []
 
@@ -3376,6 +3379,12 @@ var LIGHT = {
     object: null
 };
 
+var MOUSE = {
+    detect: true,
+    x: null,
+    y: null
+}
+
 //------------------------------
 // Render Properties
 //------------------------------
@@ -3473,15 +3482,15 @@ var webglRenderer, canvasRenderer, svgRenderer;
 // Methods
 //------------------------------
 function main() {
-    createRenderer();
-    createScene();
-    createMesh();
-    createLight();
+    createRenderer()
+    createScene()
+    createMesh()
+    createLight()
 
-    window.addEventListener('resize', onWindowResize);
-    resize(container.offsetWidth, container.offsetHeight);
+    addEventListeners()
+    resize(container.offsetWidth, container.offsetHeight)
 
-    animate();
+    animate()
 }
 
 function createRenderer() {
@@ -3557,6 +3566,14 @@ function render() {
     renderer.render(scene);
 }
 
+function addEventListeners() {
+    window.addEventListener('resize', onWindowResize)
+
+    if (MOUSE.detect) {
+        container.addEventListener('mousemove', onMouseMove)
+    }
+}
+
 function animate() {
     render();
     requestAnimationFrame(animate);
@@ -3576,11 +3593,16 @@ function resize(width, height) {
 //------------------------------
 
 function onWindowResize(event) {
-    resize(container.offsetWidth, container.offsetHeight);
-    render();
+    resize(container.offsetWidth, container.offsetHeight)
+    render()
 }
 
-main();
+function onMouseMove(event) {
+    MOUSE.x = event.x
+    MOUSE.y = event.y
+}
+
+main()
 
 //lively fns
 function livelyPropertyListener(name, val) {
@@ -3629,6 +3651,9 @@ function livelyPropertyListener(name, val) {
             break;
         case "borderOpacity":
             MESH.borderOpacity = val / 100;
+            break;
+        case "detectMouse":
+            MOUSE.detect = val;
             break;
     }
 }

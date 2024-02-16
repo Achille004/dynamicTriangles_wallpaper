@@ -85,5 +85,14 @@
         "text": "Opacity",
         "type": "slider",
         "value": 100
+    },
+    "label5": {
+        "type": "label",
+        "value": "Mouse"
+    },
+    "detectMouse": {
+        "text": "Detect",
+        "type": "checkbox",
+        "value": true
     }
 }
